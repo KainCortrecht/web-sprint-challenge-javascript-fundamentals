@@ -2,6 +2,8 @@
 /* 🚀🚀🚀🤓 Task 1: 🤓🚀🚀🚀 
 Study the code below and explain in your own words why nested function can access the variable internal. */
 
+const { tsConstructorType } = require("@babel/types");
+
 const external = "I'm outside the function";
 
 function myFunction() {
@@ -61,10 +63,7 @@ const zooAnimals = [
 
   function animalNames(){
     const displayNames = [];
-    zooAnimals.forEach(function(item){
-      return item.scientific_name;
-      return item.animal_name;
-    });
+    zooAnimals.forEach(element => displayNames.push(`name: ${element.animal_name}, scientific: ${element.scientific_name}`));
     return displayNames;
   }
 
@@ -155,8 +154,10 @@ function greeting(fn, ln){
 /* 🐴🐴🐴 Step 1: Base Constructor 🐴🐴🐴
  Use the constructor function named CuboidMaker to accept properties for length, width, and height which can be initialized as an object
 */
-function CuboidMaker(/*Your Code Here */){
-  /*Your Code Here */
+function CuboidMaker(opt){
+  this.length = opt.length;
+  this.width = opt.width;
+  this.height = opt.height;
 }
 
 
@@ -164,15 +165,18 @@ function CuboidMaker(/*Your Code Here */){
   Create a method called volume using CuboidMaker's prototype that returns the volume of a given cuboid's length, width, and height
   Formula for cuboid volume: length * width * height   */
 
-
-
+  CuboidMaker.prototype.volume = function() {
+    return (this.length * this.width * this.height);
+  }
 
 
 /* 🐴🐴🐴 Step 3: Surface Area Method 🐴🐴🐴
   Create another method called surfaceArea using CuboidMaker's prototype that returns the surface area of a given cuboid's length, width, and height. 
   Formula for cuboid surface area of a cube: 
   2 * (length * width + length * height + width * height)  */
-
+  CuboidMaker.prototype.surfaceArea = function() {
+    return(2 * ((this.length * this.width) + (this.length * this.height) + (this.width * this.height) ));
+  }
 
 
 
@@ -180,7 +184,8 @@ function CuboidMaker(/*Your Code Here */){
 /* 🐴🐴🐴 Step 4: Create a new object that uses CuboidMaker 🐴🐴🐴
   Create an object called cuboid that uses the new keyword to use our CuboidMaker constructor
   Add properties and values of length: 4, width: 5, and height: 5 to cuboid. */
-
+  let dimensions = {length: 4, width: 5, height: 5};
+  const cuboid = new CuboidMaker(dimensions);
 
 
 
@@ -194,7 +199,17 @@ function CuboidMaker(/*Your Code Here */){
 // 🦄🦄🦄 Topic 4: Classes 🦄🦄🦄 //
 //🦄🦄🦄 1. Take your prototypes from above and refactor into class syntax. Please rename your class CuboidMakerTwo and your object cuboidTwo 🦄🦄🦄
 class CuboidMakerTwo{
-
+  constructor (atr){
+    this.length = atr.length;
+    this.width = atr.width;
+    this.height = atr.height;
+  }
+  volume(){
+    return this.length * this.width * this.height;
+  }
+  surfaceArea(){
+    return (2 * ((this.length * this.width) + (this.length * this.height) + (this.width * this.height) ));
+  }
 }
 
 
